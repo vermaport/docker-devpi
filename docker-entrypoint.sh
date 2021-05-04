@@ -1,18 +1,19 @@
 #!/bin/bash
 
 function defaults {
-    : ${DEVPI_SERVERDIR="/data/server"}
-    : ${DEVPI_CLIENTDIR="/data/client"}
+    : ${DEVPISERVER_SERVERDIR="/data/server"}
+    : ${DEVPICLIENT_CLIENTDIR="/data/client"}
 
-    echo "DEVPI_SERVERDIR is ${DEVPI_SERVERDIR}"
-    echo "DEVPI_CLIENTDIR is ${DEVPI_CLIENTDIR}"
+    echo "DEVPISERVER_SERVERDIR is ${DEVPISERVER_SERVERDIR}"
+    echo "DEVPICLIENT_CLIENTDIR is ${DEVPICLIENT_CLIENTDIR}"
 
-    export DEVPI_SERVERDIR DEVPI_CLIENTDIR
+    export DEVPISERVER_SERVERDIR DEVPICLIENT_CLIENTDIR
 }
 
 function initialise_devpi {
     echo "[RUN]: Initialise devpi-server"
-    devpi-server --restrict-modify root --start --host 127.0.0.1 --port 3141 --init
+    devpi-init
+    devpi-server --restrict-modify root --start --host 127.0.0.1 --port 3141
     devpi-server --status
     devpi use http://localhost:3141
     devpi login root --password=''
