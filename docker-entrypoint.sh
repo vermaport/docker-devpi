@@ -13,7 +13,7 @@ function defaults {
 function initialise_devpi {
     echo "[RUN]: Initialise devpi-server"
     devpi-init
-    devpi-server --restrict-modify root --start --host 127.0.0.1 --port 3141 --replica-max-retries 10
+    devpi-server --restrict-modify root --start --host 127.0.0.1 --port 3141
     devpi-server --status
     devpi use http://localhost:3141
     devpi login root --password=''
@@ -31,7 +31,7 @@ if [ "$1" = 'devpi' ]; then
     fi
 
     echo "[RUN]: Launching devpi-server"
-    exec devpi-server --restrict-modify root --host 0.0.0.0 --port 3141
+    exec devpi-server --restrict-modify root --host 0.0.0.0 --port 3141 --replica-max-retries 10
 fi
 
 echo "[RUN]: Builtin command not provided [devpi]"
